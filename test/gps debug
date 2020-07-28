@@ -1,0 +1,201 @@
+Mensagem sem satélites:
+
+$GPRMC,,V,,,,,,,,,,N*53
+$GPVTG,,,,,,,,,N*30
+$GPGGA,,,,,,0,00,99.99,,,,,,*48
+$GPGSA,A,1,,,,,,,,,,,,,99.99,99.99,99.99*30
+$GPGSV,1,1,01,01,,,22*79
+$GPGLL,,,,,,V,N*64
+
+--------------------------------------------------------------------------------------------------------
+
+****Mensagem com satélites:
+
+$GPRMC,194553.00,A,0801.07268,S,03455.75046,W,1.088,,270720,,,A*74
+$GPVTG,,T,,M,1.088,N,2.015,K,A*24
+$GPGGA,194553.00,0801.07268,S,03455.75046,W,1,04,1.48,8.3,M,-10.5,M,,*72
+$GPGSA,A,3,17,15,07,13,,,,,,,,,3.24,1.48,2.88*0F
+$GPGSV,2,1,07,02,35,352,20,06,,,25,07,14,050,18,13,56,285,45*4F
+$GPGSV,2,2,07,15,27,255,27,17,40,165,30,24,05,215,19*46
+$GPGLL,0801.07268,S,03455.75046,W,194553.00,A,A*6C
+
+
+--------------------------------------------------------------------------------------------------------
+
+****Mensagem com programa funcionando 
+
+I (66026) uart_events: [UART PATTERN DETECTED] pos: 38, buffered size: 40
+I (66026) uart_events: read pat : GG 
+
+I (66036) uart_events: read dtmp: $GPVTG,,T,,M,0.287,N,0.532,K,A*2A
+$GP 
+
+I (66146) uart_events: read DATA: A,210844.00,0801.08318,S,03455.74933,W,1,07,1.88,19.4,M,-10.5,M,,*4D 
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+****Mensagem com // ESP_LOGI(TAG, "read pat : %s \n", pat);  // ESP_LOGI(TAG, "read dtmp: %s \n", dtmp); e satélites disponíveis
+
+I (20546) uart_events: [UART PATTERN DETECTED] pos: 106, buffered size: 108
+I (20626) uart_events: read DATA:  
+
+
+
+****Mensagem com // ESP_LOGI(TAG, "read pat : %s \n", pat);  // ESP_LOGI(TAG, "read dtmp: %s \n", dtmp); e satélites indisponíveis
+
+I (5036) uart_events: [UART PATTERN DETECTED] pos: 64, buffered size: 66
+I (5116) uart_events: read DATA: 
+
+
+****Mensagem com // ESP_LOGI(TAG, "read dtmp: %s \n", dtmp); e satélites disponíveis
+
+I (9626) uart_events: [UART PATTERN DETECTED] pos: 106, buffered size: 108
+I (9626) uart_events: read pat : GG 
+
+I (9716) uart_events: read DATA:  
+
+****Mensagem com // ESP_LOGI(TAG, "read dtmp: %s \n", dtmp); e satélites indisponíveis
+
+I (8616) uart_events: [UART PATTERN DETECTED] pos: 64, buffered size: 66
+I (8616) uart_events: read pat : GG 
+
+I (8706) uart_events: read DATA:  
+
+****Mensagem com // ESP_LOGI(TAG, "read pat : %s \n", pat); e satélites disponíveis
+
+I (26516) uart_events: [UART PATTERN DETECTED] pos: 106, buffered size: 108
+I (26516) uart_events: read dtmp: $GPRMC,212159.00,A,0801.07929,S,03455.74857,W,0.097,,270720,,,A*7F
+$GPVTG,,T,,M,0.097,N,0.181,K,A*25
+$GP 
+
+I (26636) uart_events: read DATA: A,212159.00,0801.07929,S,03455.74857,W,1,07,1.33,22.5,M,-10.5,M,,*47 
+
+I (27516) uart_events: [UART PATTERN DETECTED] pos: 38, buffered size: 40
+I (27516) uart_events: read dtmp: $GPVTG,,T,,M,0.261,N,0.484,K,A*2E
+$GP 
+
+I (27636) uart_events: read DATA:  
+
+I (28516) uart_events: [UART PATTERN DETECTED] pos: 106, buffered size: 108
+I (28516) uart_events: read dtmp: $GPRMC,212201.00,A,0801.07937,S,03455.74849,W,0.044,,270720,,,A*7F
+$GPVTG,,T,,M,0.044,N,0.082,K,A*29
+$GP 
+
+I (28636) uart_events: read DATA: A,212201.00,0801.07937,S,03455.74849,W,1,07,1.33,22.1,M,-10.5,M,,*4D 
+
+
+****Mensagem com // ESP_LOGI(TAG, "read pat : %s \n", pat); e satélites indisponíveis
+
+I (2936) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 9
+I (3966) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 3
+I (5066) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 80
+I (5986) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 27
+I (7156) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 94
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+****Mensagem com as recomendações e satélite
+I (430466) uart_events: [DATA EVT]:
+I (430586) uart_events: [DATA EVT]:
+I (431216) uart_events: [DATA EVT]:
+I (431216) uart_events: [UART PATTERN DETECTED] pos: 38, buffered size: 40
+I (431336) uart_events: read DATA: A,172812.00,0801.08246,S,03455.74185,W,1,07,1.29,31.3,M,-10.5,M,,*40
+
+
+****Mensagem com as recomendações e satélites indisponíveis.
+I (135126) uart_events: [DATA EVT]:
+I (135246) uart_events: [DATA EVT]:
+I (135246) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 118
+I (135256) uart_events: read pat failed
+I (135306) uart_events: [DATA EVT]:
+I (135966) uart_events: [DATA EVT]:
+I (135966) uart_events: [UART PATTERN DETECTED] pos: 62, buffered size: 64
+I (136086) uart_events: read DATA: A,173040.00,,,,,0,00,99.99,,,,,,*67
+$GPGSA,A,1,,,,,,,,,,,,,99.99,99 
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+****Mensagem com recomendações com 131072 no patt e satélites
+I (992826) uart_events: [DATA EVT]:
+I (992946) uart_events: [DATA EVT]:
+I (993576) uart_events: [DATA EVT]:
+I (993576) uart_events: [DATA EVT]:
+I (993576) uart_events: [UART PATTERN DETECTED] pos: 38, buffered size: 40
+I (993716) uart_events: read DATA: A,195422.00,0801.07551,S,03455.74204,W,1,08,0.99,27.0,M,-10.5,M,,*43 
+
+
+****Mensagem com recomendações com 131072 no patt sem satélites
+I (4236) uart_events: [DATA EVT]:
+I (4366) uart_events: [DATA EVT]:
+I (4926) uart_events: [DATA EVT]:
+I (5056) uart_events: [DATA EVT]:
+I (5056) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 118
+I (5056) uart_events: read pat failed
+I (5176) uart_events: [DATA EVT]:
+I (5266) uart_events: [DATA EVT]:
+I (5926) uart_events: [DATA EVT]:
+I (5926) uart_events: [UART PATTERN DETECTED] pos: 62, buffered size: 64
+I (6056) uart_events: read DATA: A,200603.00,,,,,0,04,2.31,,,,,,*55
+$GPGSA,A,1,06,13,02,17,,,,,,,,,6 
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+****Mensagem com recomendações menos vTaskDelay(80 / portTICK_RATE_MS); e com satélites
+I (93846) uart_events: [DATA EVT]:
+I (93966) uart_events: [DATA EVT]:
+I (94046) uart_events: [DATA EVT]:
+I (94716) uart_events: [UART PATTERN DETECTED] pos: 64, buffered size: 66
+I (94796) uart_events: read DATA:  
+
+****Mensagem com recomendações menos vTaskDelay(80 / portTICK_RATE_MS); e sem satélites
+I (91546) uart_events: [DATA EVT]:
+I (91666) uart_events: [DATA EVT]:
+I (91766) uart_events: [DATA EVT]:
+I (92416) uart_events: [UART PATTERN DETECTED] pos: 64, buffered size: 66
+I (92496) uart_events: read DATA:  
+
+
+--------------------------------------------------------------------------------------------------------
+
+****Mensagem com recomendações menos uart_flush_input(EX_UART_NUM); e com satélites
+I (301966) uart_events: [DATA EVT]:
+I (302096) uart_events: [DATA EVT]:
+I (302716) uart_events: [DATA EVT]:
+I (302716) uart_events: [DATA EVT]:
+I (302716) uart_events: [UART PATTERN DETECTED] pos: 38, buffered size: 40
+I (302856) uart_events: read DATA: A,205238.00,0801.08736,S,03455.75853,W,1,07,1.06,20.2,M,-10.5,M,,*4C 
+
+****Mensagem com recomendações menos uart_flush_input(EX_UART_NUM); e sem satélites
+I (69966) uart_events: [DATA EVT]:
+I (70096) uart_events: [DATA EVT]:
+I (70706) uart_events: [DATA EVT]:
+I (70836) uart_events: [DATA EVT]:
+I (70836) uart_events: [UART PATTERN DETECTED] pos: -1, buffered size: 108
+I (70846) uart_events: read pat failed
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
