@@ -6,11 +6,13 @@
 */
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
 #include "driver/uart.h"
 #include "esp_log.h"
+
 
 
 /**
@@ -24,6 +26,13 @@
  * - Flow control: off
  * - Event queue: on
  * - Pin assignment: TxD (default), RxD (default)
+ * 
+ *  
+Char time [2-7] 
+Char Late [12-15 e 17-21]
+Char Long [25-29 e 31-35]
+Char Alti [49-50]
+ * 
  */
 
 #define EX_UART_NUM UART_NUM_0
@@ -33,18 +42,79 @@
 #define BUF_SIZE (512)
 #define RD_BUF_SIZE (BUF_SIZE)
 
-static QueueHandle_t uart0_queue;
-static const char *TAG = "uart_events";
+#define TIME_SIZE (6)
+#define TIME_POS (2)
+#define LAT0_SIZE (4)
+#define LAT0_POS (12)
+#define LAT1_SIZE (5)
+#define LAT1_POS (17)
+#define LON0_SIZE (5)
+#define LON0_POS (25)
+#define LON1_SIZE (5)
+#define LON1_POS (31)
+#define ALT_SIZE (2)
+#define ALT_POS (49)
+
 
 typedef struct {
 	uint32_t time;
-	float longitude;
-	float latitude;
+	int longitude0;
+	int latitude0;
+    int longitude1;
+	int latitude1;
 	int n_satellites;
 	int altitude;
 	char altitude_unit;
 } nmea_gpgga_s;
 
+static QueueHandle_t uart0_queue;
+static const char *TAG = "uart_events";
+static const char *TAG1 = "GPS_infor";
+static nmea_gpgga_s exemplo;
+
+void init_load(void){
+    exemplo.time=0;
+    exemplo.longitude0=0;
+    exemplo.longitude1=0;
+    exemplo.latitude0=0;
+    exemplo.latitude1=0;
+    exemplo.altitude=0;
+}
+
+int converter(int size, int pos, uint8_t* data){
+    int base;
+    int aux0[size];
+    int aux1=0;
+
+    for(int i = 0;i < size;i++){
+        aux0[i] = data[pos+i] - '0';
+    }
+    for(int j = 0; j < size; j++){
+       base = pow(10, size - j -1);
+       aux1 += aux0[j]*base;
+    }
+     
+    return aux1;
+}
+
+void load_value(uint8_t* data){
+
+    exemplo.time = converter(TIME_SIZE, TIME_POS, data);
+    ESP_LOGI(TAG1, "UTC Time: %d ", exemplo.time);
+
+    exemplo.latitude0 = converter(LAT0_SIZE, LAT0_POS, data);
+    exemplo.latitude1 = converter(LAT1_SIZE, LAT1_POS, data);
+    ESP_LOGI(TAG1, "Latitude: %d.%d", exemplo.latitude0, exemplo.latitude1);      
+    
+    exemplo.longitude0 = converter(LON0_SIZE, LON0_POS, data);
+    exemplo.longitude1 = converter(LON1_SIZE, LON1_POS, data);
+    ESP_LOGI(TAG1, "Longitude: %d.%d", exemplo.longitude0, exemplo.longitude1); 
+
+    exemplo.altitude = converter(ALT_SIZE, ALT_POS, data);
+    ESP_LOGI(TAG1, "Altitude: %d \n\n\n", exemplo.altitude);     
+
+    init_load();
+}
 
 
 
@@ -52,10 +122,12 @@ void get_data(uint8_t* data) {
     int n = uart_read_bytes(EX_UART_NUM, data, BYTES_TO_READ, (BYTES_TO_READ + 20) / portTICK_PERIOD_MS);
     if (n >= 0) {
         data[n] = 0;
-        ESP_LOGI(TAG, "read DATA: %s \n\n\n", data);
+        ESP_LOGI(TAG, "read DATA: %s \n", data);
+        load_value(data);
     } else {
         ESP_LOGI(TAG, "read DATA: FAILED");
     }
+
 }
 
 static void uart_event_task(void *pvParameters)
@@ -178,6 +250,8 @@ void app_main(void)
     uart_enable_pattern_det_intr(EX_UART_NUM, 'G', PATTERN_CHR_NUM, 60000, 0, 0);
     //Reset the pattern queue length to record at most 16 pattern positions.
     uart_pattern_queue_reset(EX_UART_NUM, 16);
+
+    init_load();
 
     //Create a task to handler UART event from ISR
     xTaskCreate(uart_event_task, "uart_event_task", 8192, NULL, 6, NULL);
